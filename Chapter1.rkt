@@ -21,4 +21,7 @@
 (define radius 10)  
 
 (define circumference (* 2 pi radius))
-circumference
+
+
+(define (square x) (* x x))
+(square 3)
