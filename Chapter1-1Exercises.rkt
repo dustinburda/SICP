@@ -29,7 +29,7 @@ a) ;4
 
 (+ 2 (if (> b a) b a)) ;6
 
-(* (cond ((> a b) a) ;
+(* (cond ((> a b) a)
 ((< a b) b)
 (else -1))
 (+ a 1)) ;16
@@ -37,9 +37,8 @@ a) ;4
 
 
 ; Exercise 1.2
-
-(/ (+ 5 4 (- 2 (- 3 (6 + (/ 4 5)))))
-   (* 3 (- 6 2) (- 2 7))
+(/ (+ 5 4 (- 2 (- 3 (+ 6 (/ 4 5)))))
+   (* 3 (- 6 2) (- 2 7)))
 
    
 ; Exercise 1.3
@@ -51,4 +50,46 @@ a) ;4
 
 
 ; Exercise 1.4
+; The procedure will select a different operator depending on the sign of b.
+
+
+; Exercise 1.5
+(define (p) (p))
+(define (test x y)
+  (if (= x 0) 0 y)
+  )
+(test 0 (p))
+
+; Substitution Model/ Applicative Order 
+; Evaluate each the arguments and then apply
+; 
+; (test 0 (p))
+; Eval test -> replace with body
+; Eval 0 -> 0
+; Eval -> (p) ----> Would get stuck evaluating (p)
+
+
+; Normal-order Evaluation
+; Fully expand and then reduce
+;
+; Will not evaluate parameters until they are needed
+;
+; (test 0 (p))
+; Reduce ---> (if (= 0 0) 0 (p))
+; Evaluate first parameter
+
+
+
+; Exercise 1.6
+
+
+
+
+
+
+
+
+
+
+
 

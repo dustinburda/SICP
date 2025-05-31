@@ -53,9 +53,45 @@
 (abs2 -25)
 
 
-(define (sum-square-min x y z)
-  (cond ( (and (not (< z y)) (not (< z x)) ) (+ (* x x) (* y y)))
-        ( (and (not (< x y)) (not (< x z)) ) (+ (* y y) (* z z)))
-        ( (and (not (< y z)) (not (< y z)) ) (+ (* z z) (* x x))))
+
+
+(define (wackyCond x y)
+    (if (> x y) (+ x x) (+ y y))
 )
-(sum-square-min -3 4 1)
+
+
+(wackyCond 3 4)
+
+
+
+
+
+(define (sqrt-itr guess x)
+  (if (good-enough? guess x)
+      guess
+      (sqrt-itr (improve guess x) x)
+  )
+)
+
+(define (improve guess x)
+  (average guess (/ x guess))
+)
+
+(define (average x y)
+  (/ (+ x y) 2)
+)
+
+
+(define (good-enough? guess x)
+  (< ( abs(- (square guess) x)) 0.000001)
+)
+
+(define (sqrt x) (sqrt-itr 1.0 x))
+
+(sqrt 4)
+(sqrt 9)
+(sqrt 15)
+(sqrt 99)
+(sqrt 100)
+
+
