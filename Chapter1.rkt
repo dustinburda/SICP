@@ -95,3 +95,50 @@
 (sqrt 100)
 
 
+
+
+
+(define (factorial1 n)
+  ( if (= n 1)
+       1
+       (* n (factorial1 (- n 1)))
+   ))
+
+(factorial1 5)
+(factorial1 10)
+
+
+
+
+(define (factorial2 n)
+  (factorial-iter 1 1 n)
+  )
+
+(define (factorial-iter product counter max-count)
+  (if (> counter max-count)
+      product
+      (factorial-iter (* product counter) (+ counter 1) max-count)
+   )
+)
+
+(factorial2 5)
+(factorial2 10)
+
+
+
+
+(define (factorial3 n)
+  (define (factorial_iter product counter)
+    (if (> counter n)
+      product
+      (factorial_iter (* product counter) (+ counter 1))
+   ))
+  (factorial_iter 1 1)
+)
+
+(factorial3 5)
+(factorial3 10)
+
+
+
+
