@@ -140,5 +140,70 @@
 (factorial3 10)
 
 
+(define (fib n)
+  (fib_iter 1 0 n))
+
+(define (fib_iter a b count)
+  (if (= count 0)
+      b
+      (fib_iter (+ a b) a (- count 1))))
+
+
+(define (fib_recur n)
+  (cond ((= n 0) 0)
+        ((= n 1) 1)
+        ((= n 2) 1)
+        (else (+ (fib_recur (- n 2) ) (fib_recur (- n 1)) ) )))
+
+
+(fib_recur 10)
+(fib 10)
+
+
+
+
+
+(define (count-change amount) (cc amount 5))
+
+(define (cc amount kinds-of-coins)
+  (cond ((= amount 0) 1)
+        ((or (< amount 0) (= kinds-of-coins 0)) 0)
+        (else (+ (cc amount
+                     (- kinds-of-coins 1))
+                 (cc (- amount
+                        (first-denomination
+                         kinds-of-coins))
+                     kinds-of-coins)))))
+
+(define (first-denomination kinds-of-coins)
+  (cond ((= kinds-of-coins 1) 1)
+        ((= kinds-of-coins 2) 5)
+        ((= kinds-of-coins 3) 10)
+        ((= kinds-of-coins 4) 25)
+        ((= kinds-of-coins 5) 50)))
+
+
+(count-change 100)
+
+
+
+
+
+
+
+(define (expt_recur b n)
+  (cond ((= n 0) 1)
+        (else (* b (expt_recur b (- n 1))))))
+
+(expt_recur 2 5)
+
+
+(define (expt b n)
+  (expt_iter b n 1))
+
+(define (expt_iter b n product)
+  (cond ((= n 0) product)
+        (else (expt_iter b (- n 1) (* b product)))))
+
 
 
