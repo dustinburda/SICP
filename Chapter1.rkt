@@ -1,4 +1,67 @@
 #lang scheme
+
+#|
+[DONE] Exercise 1.1
+[DONE] Exercise 1.2
+[DONE] Exercise 1.3
+[DONE] Exercise 1.4
+[DONE] Exercise 1.5
+[DONE] Exercise 1.6
+Exercise 1.7
+[DONE] Exercise 1.8
+[DONE] Exercise 1.9
+[DONE] Exercise 1.10
+[DONE] Exercise 1.11
+Exercise 1.12
+Exercise 1.13
+[DONE] Exercise 1.14
+[DONE] Exercise 1.15
+[DONE] Exercise 1.16
+[DONE] Exercise 1.17
+[DONE] Exercise 1.18
+Exercise 1.19
+[DONE] Exercise 1.20
+[DONE] Exercise 1.21
+[DONE] Exercise 1.22
+[DONE] Exercise 1.23
+Exercise 1.24
+Exercise 1.25
+[DONE] Exercise 1.26
+[DONE] Exercise 1.27
+Exercise 1.28
+[DONE] Exercise 1.29
+[DONE] Exercise 1.30
+[DONE] Exercise 1.31
+[DONE] Exercise 1.32
+[DONE] Exercise 1.33
+Exercise 1.34
+Exercise 1.35
+Exercise 1.36
+Exercise 1.37
+Exercise 1.39
+Exercise 1.40
+Exercise 1.41
+Exercise 1.42
+Exercise 1.43
+Exercise 1.44
+Exercise 1.45
+Exercise 1.46
+
+
+|#
+
+
+
+
+
+
+
+
+
+
+
+
+
 (+ 137 349)
 (- 1000 334)
 (* 5 99)
@@ -204,6 +267,159 @@
 (define (expt_iter b n product)
   (cond ((= n 0) product)
         (else (expt_iter b (- n 1) (* b product)))))
+
+
+(define (gcd a b)
+  (cond ((= b 0) a)
+        (else (gcd b (remainder a b) ))))
+
+
+(gcd 35 25)
+
+
+
+
+
+; Primality Testing
+
+
+; Deterministic Test, O(n)
+
+
+(define (divides? a b)
+  (= (remainder b a) 0))
+
+(define (find-divisor n test-divisor)
+  (cond ((> (square test-divisor) n) n)
+        ((divides? test-divisor n) test-divisor)
+        (else (find-divisor n (+ test-divisor 1)))))
+
+(define (smallest-divisor n)
+  (find-divisor n 2))
+
+(define (prime? n)
+  (=  n (smallest-divisor n)))
+
+
+
+; Probabilistic Test, O(logn)
+
+
+(define (expmod base exp m)
+  (cond ((= exp 0) 1)
+        ((even? exp)
+         (remainder
+          (square (expmod base (/ exp 2) m))
+          m))
+        (else
+          (remainder
+           (* base (expmod base (- exp 1) m))
+           m))))
+
+
+(define (fermat-test n)
+  (define (try-it a)
+    (= (expmod a n n) a))
+  (try-it (+1 (random (- n 1)))))
+
+(define (fast-prime? n times)
+  (cond ((= times 0) true)
+        ((fermat-test n) (fast-prime? n (- times 1))) ; Keep running if returns true everytime
+        (else false))) ; If returns false, we know n is not prime
+
+
+
+
+
+(define (sum-integers a b)
+  (if (> a b)
+      0
+      (+ a
+         (sum-integers (+ a 1) b))))
+
+
+(sum-integers 0 10)
+
+
+(define (cube x)
+  (* x x x))
+
+(define (sum-cubes a b)
+  (if (> a b)
+      0
+      (+ (cube a)
+         (sum-cubes (+ a 1) b))))
+
+(sum-cubes 0 10)
+
+
+(define (pi-sum a b)
+  (if (> a b)
+      0
+      (+ (/ 1 (* a (+ a 2)))
+         (pi-sum (+ a 4) b))))
+
+(define (pi_approx n)
+  (* 8 (pi-sum 1.0 n)))
+
+(pi_approx 1000000)
+
+
+
+(define (sum term a next b)
+  (if (> a b)
+      0
+      (+ (term a)
+         (sum term (next a) next b))))
+
+
+
+
+
+(define (inc n)
+  (+ n 1))
+
+(define (sum-cubes-alt a b)
+  (sum cube a inc b))
+
+
+(sum-cubes-alt 0 10)
+
+
+
+
+
+(define (identity x)
+  x)
+
+(define (sum-integers-alt a b)
+  (sum identity a inc b))
+
+(sum-integers-alt 0 10)
+
+
+
+
+(define (pi-sum-alt a b)
+  (define (pi-term x)
+    (/ 1.0 ( * x (+ x 2))))
+  (define (pi-next x)
+    (+ x 4))
+  (sum pi-term a pi-next b))
+
+
+(* 8.0 (pi-sum 1 1000))
+
+
+
+
+(define (integral f a b dx)
+  (define (add-dx x)
+    (+ x dx))
+  (* (sum f (+ a (/ dx 2.0)) add-dx b)
+     dx))
+
+
 
 
 
